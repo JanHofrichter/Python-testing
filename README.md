@@ -1,4 +1,10 @@
 # Python úkoly heading
+## Lokální nastavení
+Instalace potřebných balíčků:
+```
+pip install -r requirements.txt
+```
+
 ## Práce s python heading
 **Zpracování data a práce s pythonem** -> Python-testing/Work_with_python/(evaluator.py)
   - Cíl: Máme XLSX soubor, který obsahuje dump MongoDB (tzn v rámci buněk jsou JSON objekty). Je potřeba si tuto strukturu rozložit na jednotlivé elementy. Výsledek očekávám kvantitativní analýzu jednotlivých dílčích hodnot.
