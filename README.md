@@ -4,6 +4,22 @@ Instalace potřebných balíčků:
 ```
 pip install -r requirements.txt
 ```
+Nastavení webdriveru:
+  - Chrome
+    1. Zkontrolovat verzi prohlížeče: chrome://settings/help    
+      - pokud máte verzi: Google Chrome Version 114.0.5735.90 a používáte Linux, nic nenastavujete
+    2. Stáhnout driver podle verze prohlížeče a OS: https://sites.google.com/a/chromium.org/chromedriver/downloads
+    3. Ze Zip extrahovat chromedriver
+    4. Nový chromedriver nahradit za automatic_testing/chromedriver
+  - Firefox
+    1. Stáhnout nejnovější verzi GeckoDriveru pro OS: https://github.com/mozilla/geckodriver/releases  
+    2. Ze Zip extrahovat soubor geckodriver
+    3. Geckodriver nahradit za automatic_testing/chromedriver
+    4. Nastavit GeckoDriver do automatic_testing/web_scraper.py:
+    ```
+    PATH = "automatic_testing/geckodriver"
+    driver = webdriver.Firefox(PATH)
+    ``` 
 
 ## Práce s python heading
 **Zpracování data a práce s pythonem** -> Python-testing/Work_with_python/(evaluator.py)
@@ -13,8 +29,7 @@ pip install -r requirements.txt
     - Výstup – buď v pythonu prezentovatelnou formou, nebo XLSX tabulka
   - možnost vložení Python-testing/data_python.xlsx i jako argument 
     ```
-    python3 path/to/evaluator.py path/to/source/file
-    
+    python3 work_with_python/evaluator.py work_with_python/data_python.xlsx
     ```  
 ## Automatické testy heading
   **Selenium a Python/Javascript** -> Python-testing/Automatic_testing
