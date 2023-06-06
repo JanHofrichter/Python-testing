@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 PATH = "Automatic testing/chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
+driver.maximize_window()
 driver.get("https://google.com")
 
 time.sleep(1)
