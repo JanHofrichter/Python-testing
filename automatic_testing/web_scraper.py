@@ -6,7 +6,6 @@ import logging
 
 log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s" 
 logging.basicConfig(level = logging.INFO, format = log_format)
-logger=logging.getLogger()
 
 def main():
     #Setting driver
@@ -14,6 +13,7 @@ def main():
     driver = webdriver.Chrome(PATH)
     logging.info("Selenium is starting")
     
+    #Check if code runs without problems
     try:
         driver.maximize_window()
         driver.get("https://google.com")
@@ -39,7 +39,7 @@ def main():
         logging.info("Get info about Selenium: {}".format(text))
     
     except Exception as e:
-        logger.exception("An error occured: {}".format(e))
+        logging.exception("An error occured: {}".format(e))
   
     driver.quit
 
