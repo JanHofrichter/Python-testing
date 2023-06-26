@@ -1,8 +1,9 @@
 import pandas as pd
 import logging
 import sys
+from collections import Counter
 
-log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s" 
+log_format = "%(asctime)s %(levelname)s %(name)s: %(message)s"
 logging.basicConfig(level = logging.INFO, format = log_format)
 logger = logging.getLogger()
 
@@ -23,15 +24,42 @@ def evaluate_data(data):
     if len(data.columns) < expected_columns_count:
         logger.exception("Insufficient number of columns in the file.")
     else:
-        #Iterate threw I-R columns, log unique values and its frequency of appearance 
+        #Iterate threw I-R columns, log unique values and its frequency of appearance
         for column in data.columns[8:18]:
-            values = data[column].value_counts(dropna=False)
-            logger.info(str(values) + '\n')
+            new_data = []
+            for element in data[column]:
+                try:
+                    #Try if element in string is convertable to list,dict,etc.
+                    to_type = eval(element)
+                    if (type(to_type) == list and len(to_type)>1):
+                            for x in to_type:
+                                new_data.append(x)
+
+                    elif (len(to_type)<=1):
+                        #list []/ list [element]/ dict {}
+                        new_data.append(to_type[0])
+
+                    else: 
+                        #dict
+                        for key, value in to_type.items():
+                            new_data.append({key: value})
+
+                except:
+                    #NaN elements
+                    new_data.append(element)
+
+
+            series = pd.Series(new_data)
+
+            #Logging unique values with its occurency
+            value_counts = series.value_counts(dropna=False)
+            print(column)
+            logger.info(str(value_counts) + '\n')
 
         if "ID user" and "Z/V" in data.columns:
             #Log number of "Vypnute" and "Zapnute" of every user
             count = data.groupby("ID user")["Z/V"].value_counts().unstack(fill_value=0)
-            logger.info("Users and their total number of \"Vypnuté\" and \"Zapnuté\":\n")
+            logger.info("Users and their total number of \"Zapnuté\" and \"Vypnuté\":\n")
             logger.info(count)
         else:
             logger.exception("Column not found: 'ID user' or 'Z/V'")
