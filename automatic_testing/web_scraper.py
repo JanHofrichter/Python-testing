@@ -21,13 +21,13 @@ def main():
 
         time.sleep(2)
 
-        cookies = driver.find_element(By.ID, "L2AGLb")
+        cookies = driver.find_element(By.XPATH, "//div[contains(@class,'QS5gu sy4vM')]")
         cookies.click()
         logging.info("Accepting cookies is done")
 
         time.sleep(2)
 
-        search = driver.find_element(By.ID, "APjFqb")
+        search = driver.find_element(By.XPATH, "//textarea[contains(@class,'gLFyf')]")
         search.send_keys("Selenium")
         search.send_keys(Keys.ENTER)
 
@@ -41,7 +41,10 @@ def main():
     except Exception as e:
         logging.exception("An error occured: {}".format(e))
   
+    
     driver.quit
+    logging.info("Selenium closed")
+
 
 if __name__ == '__main__':
     main()
